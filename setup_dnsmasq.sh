@@ -10,7 +10,7 @@ fi
 apt-get install libgmp10 libperl5.* unzip pax sysstat sqlite3 dnsmasq wget libaio1
 DNSMASQ_CONF=/etc/dnsmasq.d/zimbra.conf
 HOSTNAME=$(hostname)
-HOSTIP=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
+HOSTIP=$(hostname -I)
 echo "$HOSTIP  $HOSTNAME.zimbra.local $HOSTNAME" >> /etc/hosts
 echo "server=$HOSTIP" >> $DNSMASQ_CONF
 echo "domain=zimbra.local" >> $DNSMASQ_CONF
