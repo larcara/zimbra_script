@@ -23,9 +23,10 @@ function test_if_pwned() {
 }
 
 function print_help {
-	echo "usage: /n/n/n"
+	echo "usage:"
 	echo "$0 email_to_test to check if email was pwned"
 	echo "$0 list to list breaches "
+	echo "$0 FILENAME to check all emails n the file (one per line)"
 
 
 }
