@@ -16,8 +16,9 @@ function read_file {
 function test_if_pwned() {
 	PWNED=$(curl --silent --user-agent check_pwned --header "Accept: application/vnd.haveibeenpwned.v2+json" https://haveibeenpwned.com/api/breachedaccount/$EMAIL?truncateResponse=true)
 	if [[ ! -z $PWNED ]]; then
-	   echo "$EMAIL $PWNED"
+	   echo "PWNED - $EMAIL $PWNED"
 	fi
+	  echo "OK - $EMAIL"
 	sleep 2
 }
 
