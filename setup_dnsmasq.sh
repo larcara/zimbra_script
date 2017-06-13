@@ -12,6 +12,7 @@ HOSTIP=$(hostname -I)
 echo "$HOSTIP  $HOSTNAME.zimbra.local $HOSTNAME" >> /etc/hosts
 echo "server=$HOSTIP" >> $DNSMASQ_CONF
 echo "domain=zimbra.local" >> $DNSMASQ_CONF
+echo "mx-host=$HOSTNAME, $HOSTNAME.zimbra.local, 5" >> $DNSMASQ_CONF
 echo "mx-host=zimbra.local, $HOSTNAME.zimbra.local, 5" >> $DNSMASQ_CONF
 echo "mx-host=$HOSTNAME.zimbra.local, $HOSTNAME.zimbra.local, 5" >> $DNSMASQ_CONF
 echo "listen-address=127.0.0.1" >> $DNSMASQ_CONF
