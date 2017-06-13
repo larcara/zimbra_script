@@ -10,6 +10,7 @@ DNSMASQ_CONF=/etc/dnsmasq.d/zimbra.conf
 HOSTNAME=$(hostname)
 HOSTIP=$(hostname -I)
 echo "$HOSTIP  $HOSTNAME.zimbra.local $HOSTNAME" >> /etc/hosts
+echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
 echo "server=$HOSTIP" >> $DNSMASQ_CONF
 echo "domain=zimbra.local" >> $DNSMASQ_CONF
 echo "mx-host=$HOSTNAME, $HOSTNAME.zimbra.local, 5" >> $DNSMASQ_CONF
