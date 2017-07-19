@@ -24,7 +24,7 @@ for i in $folders; do
 done
 unset IFS;
 
-crontab -l > '$1/$ZIMBRA_VERSION/crontab_root'
+crontab -l > $1/$ZIMBRA_VERSION/crontab_root
 cp /etc/init.d/zimbra $1/$ZIMBRA_VERSION/init.d.zimbra
 
 chown -R zimbra:zimbra $1/$ZIMBRA_VERSION
