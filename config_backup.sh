@@ -9,7 +9,7 @@ fi
 ZIMBRA_VERSION="$(echo "$(su - zimbra -c 'zmcontrol -v')" | sed 's/[\.| ]/_/g')"
 ZIMBRA_HOST="$(su - zimbra -c 'zmhostname')"
 DOMS="$(su - zimbra -c 'zmprov -l gad')" 
-
+COSS="$(su - zimbra -c 'zmprov -l gac')" 
 echo $ZIMBRA_VERSION
 echo $ZIMBRA_HOST
 echo $DOMS
@@ -32,9 +32,14 @@ chown -R zimbra:zimbra $1/$ZIMBRA_VERSION
 su - zimbra -c "postconf >  '$1/$ZIMBRA_VERSION/postconf'"
 su - zimbra -c "zmprov gacf >  '$1/$ZIMBRA_VERSION/globalpre'"
 su - zimbra -c "zmlocalconfig  >  '$1/$ZIMBRA_VERSION/localpre'"
-su - zimbra -c "zmprov gs $ZIMBRA_HOST >  '$1/$ZIMBRA_VERSION/server.$ZIMBRA_HOST'"
+su - zimbra -c "zmprov gs -e $ZIMBRA_HOST >  '$1/$ZIMBRA_VERSION/server.$ZIMBRA_HOST'"
 for dom in $DOMS; do
-  su - zimbra -c "zmprov gd $dom >  '$1/$ZIMBRA_VERSION/domain.$dom'" 
+  su - zimbra -c "zmprov gd -e $dom >  '$1/$ZIMBRA_VERSION/domain.$dom'" 
 done
-
+for cos in $COSS; do
+  su - zimbra -c "zmprov gc $com >  '$1/$ZIMBRA_VERSION/cos.$cos'" 
+done
 su - zimbra -c "crontab -l >  '$1/$ZIMBRA_VERSION/crontab_zimbra'"
+
+chown -R zimbra:zimbra $1/$ZIMBRA_VERSION
+
