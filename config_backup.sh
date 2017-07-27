@@ -37,7 +37,7 @@ for dom in $DOMS; do
   su - zimbra -c "zmprov gd -e $dom >  '$1/$ZIMBRA_VERSION/domain.$dom'" 
 done
 for cos in $COSS; do
-  su - zimbra -c "zmprov gc $com >  '$1/$ZIMBRA_VERSION/cos.$cos'" 
+  su - zimbra -c "zmprov gc $cos >  '$1/$ZIMBRA_VERSION/cos.$cos'" 
 done
 su - zimbra -c "crontab -l >  '$1/$ZIMBRA_VERSION/crontab_zimbra'"
 
