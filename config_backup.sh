@@ -10,6 +10,7 @@ ZIMBRA_VERSION="$(echo "$(su - zimbra -c 'zmcontrol -v')" | sed 's/[\.| ]/_/g')"
 ZIMBRA_HOST="$(su - zimbra -c 'zmhostname')"
 DOMS="$(su - zimbra -c 'zmprov -l gad')" 
 COSS="$(su - zimbra -c 'zmprov -l gac')" 
+SERVERS="$(su - zimbra -c 'zmprov -l gas')"
 echo $ZIMBRA_VERSION
 echo $ZIMBRA_HOST
 echo $DOMS
@@ -32,7 +33,9 @@ chown -R zimbra:zimbra $1/$ZIMBRA_VERSION
 su - zimbra -c "postconf >  '$1/$ZIMBRA_VERSION/postconf'"
 su - zimbra -c "zmprov gacf >  '$1/$ZIMBRA_VERSION/globalpre'"
 su - zimbra -c "zmlocalconfig  >  '$1/$ZIMBRA_VERSION/localpre'"
-su - zimbra -c "zmprov gs -e $ZIMBRA_HOST >  '$1/$ZIMBRA_VERSION/server.$ZIMBRA_HOST'"
+for server in $SERVERS; do
+  su - zimbra -c "zmprov gs -e $dserver >  '$1/$ZIMBRA_VERSION/server.$server'" 
+done
 for dom in $DOMS; do
   su - zimbra -c "zmprov gd -e $dom >  '$1/$ZIMBRA_VERSION/domain.$dom'" 
 done
