@@ -6,7 +6,7 @@ then
                 exit
 fi
 
-ZIMBRA_VERSION="$(echo "$(su - zimbra -c 'zmcontrol -v')" | sed 's/[\.| ]/_/g')"
+ZIMBRA_VERSION="$(echo "$(su - zimbra -c 'zmcontrol -v')" | sed 's/[\.| |, ]/_/g')"
 ZIMBRA_HOST="$(su - zimbra -c 'zmhostname')"
 DOMS="$(su - zimbra -c 'zmprov -l gad')" 
 COSS="$(su - zimbra -c 'zmprov -l gac')" 
