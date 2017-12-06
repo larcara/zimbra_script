@@ -1,0 +1,25 @@
+install php5 , apache e mysql/mariadb
+
+mkdir -p /var/www/html/nextcloud
+wget https://download.nextcloud.com/server/installer/setup-nextcloud.php -O /var/www/html/nextcloud/setup.php
+chown -R www-data. /var/www/html/nextcloud
+browse http://serverip/nextcloud/setup.php
+
+create nextcloud user and db
+
+  create user 'nextcloud'@'localhost' identified by 'PASSWORD';
+  create database nextcloud CHARACTER SET utf8 COLLATE utf8_general_ci;
+  grant all on nextcloud.* to 'nextcloud'@'localhost';
+  flush privileges
+
+browse http://serverip/nextcloud/setup.php
+
+install
+
+wget https://s3-eu-west-1.amazonaws.com/zextras-artifacts/zimbra_drive/nextcloud/zimbradrive.tar.gz -O /tmp/zimbradrive.tar.gz
+tar -xvf zimbradrive.tar.gz
+mv zimbradrive /var/www/html/nextcloud/apps/
+
+
+zmprov md domain.tld zimbraDriveOwnCloudURL 'http://nextcloud.dominio.com/index.php'
+
