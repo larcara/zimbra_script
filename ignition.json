@@ -1,4 +1,5 @@
 {
+  "validator": "https://coreos.com/validate/",
   "ignition": { "version": "2.1.0" },
   "storage": {
     "files": [{
