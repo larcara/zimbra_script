@@ -28,21 +28,18 @@ unset IFS;
 crontab -l > $1/$ZIMBRA_VERSION/crontab_root
 cp /etc/init.d/zimbra $1/$ZIMBRA_VERSION/init.d.zimbra
 
-chown -R zimbra:zimbra $1/$ZIMBRA_VERSION
-
-su - zimbra -c "postconf >  '$1/$ZIMBRA_VERSION/postconf'"
-su - zimbra -c "zmprov gacf >  '$1/$ZIMBRA_VERSION/globalpre'"
-su - zimbra -c "zmlocalconfig  >  '$1/$ZIMBRA_VERSION/localpre'"
+su - zimbra -c "postconf ">  $1/$ZIMBRA_VERSION/postconf
+su - zimbra -c "zmprov gacf ">  $1/$ZIMBRA_VERSION/globalpre
+su - zimbra -c "zmlocalconfig -s " >  $1/$ZIMBRA_VERSION/localpre
 for server in $SERVERS; do
-  su - zimbra -c "zmprov gs -e $dserver >  '$1/$ZIMBRA_VERSION/server.$server'" 
+  su - zimbra -c "zmprov gs -e $server " >  $1/$ZIMBRA_VERSION/server.$server
 done
 for dom in $DOMS; do
-  su - zimbra -c "zmprov gd -e $dom >  '$1/$ZIMBRA_VERSION/domain.$dom'" 
+  su - zimbra -c "zmprov gd -e $dom " >  $1/$ZIMBRA_VERSION/domain.$dom 
 done
 for cos in $COSS; do
-  su - zimbra -c "zmprov gc $cos >  '$1/$ZIMBRA_VERSION/cos.$cos'" 
+  su - zimbra -c "zmprov gc $cos " >  $1/$ZIMBRA_VERSION/cos.$cos
 done
-su - zimbra -c "crontab -l >  '$1/$ZIMBRA_VERSION/crontab_zimbra'"
+su - zimbra -c "crontab -l " >  $1/$ZIMBRA_VERSION/crontab_zimbra
 
-chown -R zimbra:zimbra $1/$ZIMBRA_VERSION
 
