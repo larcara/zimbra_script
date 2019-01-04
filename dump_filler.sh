@@ -3,11 +3,6 @@ test_account=$1
 tot_emails=$2
 from_account="X$test_account"
 dumsper_threshold=3
-#!/bin/bash
-test_account=$1
-tot_emails=$2
-from_account="X$test_account"
-dumsper_threshold=3
 current_date=$(date)
 message_id_base=$(date +%s)
 
@@ -48,7 +43,11 @@ done
 
 echo "executing: zmlmtpinject -r $1 -s $from_account -d /tmp/fake_emls" 
 zmlmtpinject -r $1 -s $from_account -d /tmp/fake_emls
-id_to_del=$(zmmailbox -z -m $1 s -l 1000 -t message "#DumpsterTest:1" | grep "mess" | cut -b5-9)
+
+echo "searching for message to delete:"
+echo "zmmailbox -z -m $1 s -l 999 -t message '#DumpsterTest:1' "
+# Perl regexp match \d.+ behind (?<=\. ) and (?=mess)  
+id_to_del=$(zmmailbox -z -m $1 s -l 999 -t message "#DumpsterTest:1" | grep -oP "(?<=\. )\d.+ (?=mess)")
 
 echo "Executing: zmmailbox -z -m $1 mm $(join_by , $id_to_del) Trash"
 
