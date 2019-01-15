@@ -47,7 +47,7 @@ zmlmtpinject -r $1 -s $from_account -d /tmp/fake_emls
 echo "searching for message to delete:"
 echo "zmmailbox -z -m $1 s -l 999 -t message '#DumpsterTest:1' "
 # Perl regexp match \d.+ behind (?<=\. ) and (?=mess)  
-id_to_del=$(zmmailbox -z -m $1 s -l 999 -t message "#DumpsterTest:1" | grep -oP "(?<=\. )\d.+ (?=mess)")
+id_to_del=$(zmmailbox -z -m $1 s -l 999 -t message "#DumpsterTest:1" | grep -oP "(?<=\. ).+ (?=mess)")
 
 echo "Executing: zmmailbox -z -m $1 mm $(join_by , $id_to_del) Trash"
 
